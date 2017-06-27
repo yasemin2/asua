@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>eu.beiaro.platform.libswe</groupId>
+		<artifactId>asua-platform-pom</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<groupId>eu.beiaro.platform.libswe.om</groupId>
+	<artifactId>swe-common-om</artifactId>
+	<packaging>jar</packaging>
+
+	<name>SWE OM Library</name>
+	<description>Responsible for working with SWE OM</description>
+
+	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/com.vividsolutions/jts -->
+		<dependency>
+		    <groupId>com.vividsolutions</groupId>
+		    <artifactId>jts</artifactId>
+		    <version>1.13</version>
+		</dependency>
+		<!-- dependency on lib-swe-common-core -->
+		<dependency>
+	    		<groupId>eu.beiaro.platform.libswe.core</groupId>
+	    		<artifactId>swe-common-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			
+		</dependency>
+
+		
+
+	</dependencies>
+</project>

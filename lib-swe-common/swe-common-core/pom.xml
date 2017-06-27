@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>eu.beiaro.platform.libswe</groupId>
+		<artifactId>asua-platform-pom</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<groupId>eu.beiaro.platform.libswe.core</groupId>
+	<artifactId>swe-common-core</artifactId>
+	<packaging>jar</packaging>
+
+	<name>SWE Library</name>
+	<description>Responsible for working with SWE</description>
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+		<dependency>
+	    		<groupId>ch.qos.logback</groupId>
+	    		<artifactId>logback-classic</artifactId>
+	    		<version>1.1.2</version>
+	    		<scope>compile</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.codehaus.woodstox/woodstox-core-asl -->
+		<dependency>
+		    <groupId>org.codehaus.woodstox</groupId>
+		    <artifactId>woodstox-core-asl</artifactId>
+		    <version>4.2.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.0</version>
+		</dependency>	
+		<!-- https://mvnrepository.com/artifact/com.vividsolutions/jts -->
+		<dependency>
+		    <groupId>com.vividsolutions</groupId>
+		    <artifactId>jts</artifactId>
+		    <version>1.13</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.custommonkey</groupId>
+		    <artifactId>xmlunit</artifactId>
+		    <version>1.2</version>
+		</dependency>
+
+	</dependencies>
+
+	<repositories>
+	    <repository>
+	      <id>xmlunit</id>
+	      <url>file:///home/alecxs/.m2/repository/org/custommonkey/</url>
+	    </repository>
+	  </repositories>
+</project>

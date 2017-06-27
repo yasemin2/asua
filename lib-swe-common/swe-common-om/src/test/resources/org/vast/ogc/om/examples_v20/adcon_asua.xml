@@ -1,0 +1,23 @@
+<om:OM_Observation xmlns:om="http://www.opengis.net/om/2.0" 
+	xmlns:gml="http://www.opengis.net/gml/3.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xlink="http://www.w3.org/1999/xlink" gml:id="1234">
+	<!-- observation type; here Measurement -->
+	<om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement" />
+	<!-- period in time for which the mesaurment applies -->
+	<om:phenomenonTime>
+		<gml:TimeInstant gml:id="phenomenonTime">
+			<gml:timePosition>2016-12-26T15:18:24</gml:timePosition>
+		</gml:TimeInstant>
+	</om:phenomenonTime>
+	<!-- point in time when the measurement was observed (referenced)-->
+	<om:resultTime xlink:href="#phenomenonTime" />
+	<!-- reference to sensor/procedure using its identifier -->
+	<om:procedure xlink:href="MYROOM_SENSOR" />
+	<!-- reference to phenomena using its identifier -->
+	<om:observedProperty xlink:href="Temperature" />
+	<!-- reference to featureOfInterest using its identifier -->
+	<om:featureOfInterest xlink:href="my_room1" xlink:title="my_room1" />
+	<!-- result of the observation -->
+	<om:result uom="degree C" xsi:type="gml:MeasureType">25.16</om:result>
+</om:OM_Observation>
