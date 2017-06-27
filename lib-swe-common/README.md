@@ -1,6 +1,8 @@
 SWE Common Library (lib-swe-common)
 ===================================
 
+Currently the video module is not enabled, as there are dependency issues to be solved
+
 This open source project aims at building a JAVA API and implementation of the SWE (Sensor Web Enablement) Common Data Model, that can be easily used to access and produce SWE Common Data, and convert in to/from existing formats such as NetCDF, HDF, GeoTIFF, JPEG2000, etc... It can also be used to quickly develop SWE services such as SOS, SPS and SAS which all rely on the SWE Common Data Model.
 
 The project was initiated by the VAST Team at the University of Alabama in Huntsville (UAH) but is now maintained by Sensia Software and Botts Innovative Research, Inc..
