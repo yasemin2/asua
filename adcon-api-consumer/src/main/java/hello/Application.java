@@ -37,72 +37,79 @@ public class Application {
 	@Bean
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
-			
-			HttpHeaders headers1 = new HttpHeaders();
-			headers1.setContentType(MediaType.APPLICATION_XML);
-
-			UriComponentsBuilder builder1 = UriComponentsBuilder.fromHttpUrl("http://demo.adcon.at/addUPI")
-			        .queryParam("function", "login")
-			        .queryParam("user", "playground")
-			        .queryParam("passwd", "playground");
-
-			HttpEntity<?> entity1 = new HttpEntity<>(headers1);
-
-			HttpEntity<String> response1 = restTemplate.exchange(
-			        builder1.build().encode().toUri(), 
-			        HttpMethod.GET, 
-			        entity1, 
-			        String.class);
-
-			log.info(response1.getBody());
-			
-			String token = parseAdconTokenFromXmlStr(response1.getBody());
-			
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_XML);
-
-			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://demo.adcon.at/addUPI")
-			        .queryParam("function", "getconfig")
-			        .queryParam("session-id", token)
-			        .queryParam("depth", "1");
-
-			HttpEntity<?> entity = new HttpEntity<>(headers);
-
-			HttpEntity<String> response = restTemplate.exchange(
-			        builder.build().encode().toUri(), 
-			        HttpMethod.GET, 
-			        entity, 
-			        String.class);
-
-			log.info(response.getBody());
-			
-			parseAdconFromXmlStr(response.getBody());
-			
+			String xmlTokenString = getAuthToken(restTemplate);
+			String token = parseAdconTokenFromXmlStr(xmlTokenString);
+			String xmlString = getResponseFromToken(token, restTemplate);
+			parseAdconFromXmlStr(xmlString);
 		};
 	}
-	
-	@Test
-	public void parseAdconFromXmlStr(String xmlString) throws IOException {
-	    XmlMapper xmlMapper = new XmlMapper();
-	    Response value = 
-	      xmlMapper.readValue(xmlString, Response.class);
-	    Node1 responseValue = value.getNode();
-	    Node[] nodeValue = responseValue.getNodes();
-	    log.info("The name of the node with id: " + Integer.toString(nodeValue[0].getId()) + " is: " + nodeValue[0].getName());
+
+	public String getAuthToken(RestTemplate restTemplate) {
+		HttpHeaders headers = new HttpHeaders();// declară header și setează
+												// mediatype să fie xml
+		headers.setContentType(MediaType.APPLICATION_XML);
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://demo.adcon.at/addUPI")
+				.queryParam("function", "login")//
+				.queryParam("user", "playground")//
+				.queryParam("passwd", "playground");// construiesc URI cu
+													// parametrii menționați în
+													// addUPI documentație
+
+		HttpEntity<?> entity = new HttpEntity<>(headers);// Instanțiază un nou
+															// obiect de tip
+															// HttpEntity
+
+		HttpEntity<String> response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity,
+				String.class);// aici apelează restTemplate (e un template,
+								// adică are deja metodele făcute ca doar să le
+								// apelezi și să obții ce ai nevoie) pentru a
+								// returna răspunsul (care știm că e xml) și-l
+								// pune într-un HttpEntity (de data aceasta
+								// specifică faptul că e String)
+
+		log.info(response.getBody());
+		return response.getBody();
 	}
-	
-	
+
+	public String getResponseFromToken(String token, RestTemplate restTemplate) {
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_XML);
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://demo.adcon.at/addUPI")
+				.queryParam("function", "getconfig").queryParam("session-id", token).queryParam("depth", "1");
+
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+
+		HttpEntity<String> response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity,
+				String.class);
+
+		log.info(response.getBody());
+
+		return response.getBody();
+
+	}
+
 	public String parseAdconTokenFromXmlStr(String xmlTokenString) throws IOException {
 		String token;
-	    XmlMapper xmlMapper = new XmlMapper();
-	    Token value = 
-	      xmlMapper.readValue(xmlTokenString, Token.class);
-	    
-	    token = value.getResult().getTokenString().getTokenString();
-	    log.info("login token is: " + token);
-	    
+		XmlMapper xmlMapper = new XmlMapper();
+		Token value = xmlMapper.readValue(xmlTokenString, Token.class);
+
+		token = value.getResult().getTokenString().getTokenString();
+		log.info("login token is: " + token);
+
 		return token;
 	}
-	
-	
-} 
+
+	@Test
+	public void parseAdconFromXmlStr(String xmlString) throws IOException {
+		XmlMapper xmlMapper = new XmlMapper();
+		Response value = xmlMapper.readValue(xmlString, Response.class);
+		Node1 responseValue = value.getNode();
+		Node[] nodeValue = responseValue.getNodes();
+		log.info("The name of the node with id: " + Integer.toString(nodeValue[0].getId()) + " is: "
+				+ nodeValue[0].getName());
+	}
+
+}

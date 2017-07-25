@@ -11,9 +11,4 @@ public class Result {
 	public TokenString getTokenString() {
 		return tokenString;
 	}
-
-	public void setTokenString(TokenString tokenString) {
-		this.tokenString = tokenString;
-	}
-
 }
