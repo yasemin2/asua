@@ -52,7 +52,9 @@ public class Application {
 //			String beiaNodeId=getBeiaAdconNodeIdFromXmlStr(xmlString);
 			String xmlStringMeas=getBeiaDataFromTokenandId(token, restTemplate, "466");
 			
-			getBarometricPressure(xmlStringMeas);
+			BarometricPressure barometricPressure = new BarometricPressure();
+			
+			barometricPressure.getBarometricPressure(xmlStringMeas);
 			//String xmlStringNodeId1=getResponseFromTokenandId1(token, restTemplate);
 //			parseBeiaAdconFromXmlStr(xmlStringNodeId);
 			//parseBeiaAdconFromXmlStr(xmlStringNodeId1);
@@ -186,21 +188,7 @@ public class Application {
 	*/
 
 	
-	public void getBarometricPressure(String xmlString) throws IOException {
-		XmlMapper xmlMapper = new XmlMapper();
-		ValueResponse value = xmlMapper.readValue(xmlString, ValueResponse.class);
-		ValueNode responseValue = value.getNode();
-		Value dataValue = responseValue.getValue();
-		
-		BarometricPressure barometricPressure = new BarometricPressure();
-		
-		barometricPressure.setValue(dataValue.getValueString());
-		barometricPressure.setUnit("Pa"); //is this correct?
-		
-		log.info("The barometric pressure value of the sensor with id: " + responseValue.getId() + " is: "
-				+ barometricPressure.getValue() + " " + barometricPressure.getUnit());
-		
-	}
+	
 
 	public String parseAdconTokenFromXmlStr(String xmlTokenString) throws IOException {
 		String token;
