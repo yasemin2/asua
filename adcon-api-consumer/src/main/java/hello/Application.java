@@ -41,8 +41,10 @@ public class Application {
 			String token = parseAdconTokenFromXmlStr(xmlTokenString); //ok
 			String xmlString=getBeiaResponseFromToken(token, restTemplate); //ok - acum prelucrăm XML cu configuratia tuturor nodurilor
 			String beiaNodeId=getBeiaAdconNodeIdFromXmlStr(xmlString);
-			String xmlStringNodeId=getResponseFromTokenandId(token, restTemplate, beiaNodeId);
+			String xmlStringNodeId=getResponseFromTokenandId(token, restTemplate);
+			//String xmlStringNodeId1=getResponseFromTokenandId1(token, restTemplate);
 			parseBeiaAdconFromXmlStr(xmlStringNodeId);
+			//parseBeiaAdconFromXmlStr(xmlStringNodeId1);
 
 		};
 	}
@@ -113,13 +115,13 @@ public class Application {
 		return response.getBody();
 
 	}
-	public String getResponseFromTokenandId(String token, RestTemplate restTemplate, String Id) {
+	public String getResponseFromTokenandId(String token, RestTemplate restTemplate) {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_XML);
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://82.78.81.167/addUPI")
-				.queryParam("function", "getconfig").queryParam("session-id", token).queryParam("id", Id);
+				.queryParam("function", "getconfig").queryParam("session-id", token).queryParam("function","getdata").queryParam("id", "34");
 	
 
 		HttpEntity<?> entity = new HttpEntity<>(headers);
@@ -132,7 +134,26 @@ public class Application {
 		return response.getBody();
 
 	}
+	/*public String getResponseFromTokenandId1(String token, RestTemplate restTemplate) {
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_XML);
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://82.78.81.167/addUPI")
+				.queryParam("function", "getdata").queryParam("session-id", token).queryParam("id", "34");
 	
+
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+
+		HttpEntity<String> response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity,
+				String.class);
+
+		log.info(response.getBody());
+
+		return response.getBody();
+
+	}
+	*/
 
 	public String getDemoResponseFromToken(String token, RestTemplate restTemplate) {
 // bună pt arhivă
