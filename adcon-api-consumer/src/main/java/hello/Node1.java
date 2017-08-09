@@ -7,6 +7,12 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 public class Node1 {
 	
 	@JacksonXmlProperty(isAttribute = true)
+	private String template;
+	
+	@JacksonXmlProperty(isAttribute = true)
+	private String subclass;
+	
+	@JacksonXmlProperty(isAttribute = true)
 	private String name;
 	
 	@JacksonXmlProperty(isAttribute = true)

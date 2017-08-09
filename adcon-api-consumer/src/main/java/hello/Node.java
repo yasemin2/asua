@@ -6,6 +6,12 @@ public class Node {
 	private String name;
 	private int id;
 	
+	@JacksonXmlProperty(isAttribute = true)
+	private String template;
+	
+	@JacksonXmlProperty(isAttribute = true)
+	private String subclass;
+	
 	@JacksonXmlProperty(localName = "class")
     private String classs;
 	
